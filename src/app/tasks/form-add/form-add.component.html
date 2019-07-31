@@ -1,0 +1,41 @@
+<a (click)="toogleAddItems()" class="waves-effect waves-light btn">
+  <i class="material-icons left">add</i>Add Item
+</a>
+
+<a [class.disabled]="false" (click)="removeItems()" style="margin-left: 10px;" class="waves-effect waves-light btn red">
+  <i class="material-icons left">remove</i>Remove items
+</a>
+
+<div class="add-item z-depth-1" *ngIf="toogleAddVar" [@fadeInOut]>
+  <form (ngSubmit)="validationsForms()" #setForm="ngForm">
+    <div class="input-field">
+      <input type="text" required id="add_item__input" name="title" [(ngModel)]="add_item_title" value="Title" #add_item__input="ngModel">
+      <label for="add_item__input">Title</label>
+      <div class="warning" [hidden]="add_item__input.valid || add_item__input.pristine">
+        Not empty
+      </div>
+    </div>
+    <div class="input-field">
+      <input type="text" id="add_item__input2" name="descriptions" [(ngModel)]="add_item_desc" value="Descriptions" #add_item__input2="ngModel">
+      <label for="add_item__input2">Descriptions</label>
+    </div>
+    <div class="input-field" style="width: 14%">
+      <input type="date" id="add_item__input3" name="date" [(ngModel)]="add_item_date" value="Date" #add_item__input2="ngModel">
+      <label for="add_item__input3">Deadline</label>
+    </div>
+
+    <div class="input-field select-wrapper" style="width: 12%">
+      <select (change)="selectPriority($event)" class="select-class">
+        <option value="―" selected>―</option>
+        <option value="high">High</option>
+        <option value="med">Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <label>Priority</label>
+    </div>
+
+    <button [disabled]="!setForm.form.valid" (click)="addItems()" type="submit" class="btn-floating btn-middle waves-effect waves-light red">
+      <i class="material-icons">add</i>
+    </button>
+  </form>
+</div>

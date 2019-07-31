@@ -1,0 +1,36 @@
+%br {
+    border-radius: 4px;
+}
+%fn_g {
+    font-size: 14px;
+}
+.add-item {
+    form {
+        @extend %br;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 1em;
+        .input-field {
+            width: 25%;
+            margin-top: 24px !important;
+            margin-bottom: 5px !important;
+            input {
+                @extend %fn_g;
+                padding: 0 5px;
+            }
+            &:first-child {
+                position: relative;
+                .warning {
+                    position: absolute;
+                    left: 50%;
+                    top: -13px;
+                    transform: translate(-50%, 0);
+                    font-size: 11px;
+                    color: #e53935;
+                }
+            }
+        }
+    }
+
+ }

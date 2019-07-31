@@ -1,0 +1,42 @@
+<div class="container" [@animFade]>
+
+  <app-form-add></app-form-add>
+
+  <ul class="list_wrapper" *ngIf="showList" [@animFade]>
+    <li class="z-depth-1 row" *ngFor='let it of list; let i = index'>
+      <div class="list_wrapper_ckeckbox__label col s4">
+        <label (click)="updateDone(keys[i].key, doneCheck)" #list_wrapper_ckeckbox__label>
+          <input [checked]="it.done" type="checkbox" checked="checked" #doneCheck/>
+          <span class="list_wrapper__title">{{it.title}}</span>
+        </label>
+        <a (click)="showFullTitle(list_wrapper_ckeckbox__label)" *ngIf="it.title.length>60" class="btn-floating btn-small pulse">
+          <i class="material-icons">edit</i>
+        </a>
+      </div>
+      <div class="list_wrapper__descriptions col s3">
+        {{it.desc}}
+      </div>
+      <div class="list_wrapper__date col s3">
+        <div class="list_wrapper__date__dateSet">
+          Created: {{it.date}}
+        </div>
+        <div class="list_wrapper__date__dateDo">
+          Deadline: {{it.to_date | date:'fullDate' }}
+        </div>
+      </div>
+      <div class="list_wrapper__priority col s1" [class.high_pr]="it.priority == 'high'" [class.med_pr]="it.priority == 'med'"
+        [class.low_pr]="it.priority == 'low'">
+        {{it.priority | lowercase}}
+      </div>
+      <div class="list_wrapper__buttonRemove col s1">
+        <a class="btn-floating btn-small waves-effect waves-light red" (click)=removeItems(keys[i].key)>
+          <i class="material-icons">remove</i>
+        </a>
+      </div>
+    </li>
+    <div [@animFade] *ngIf="showEmptyLabel" class="empty-task-list-label">
+      Tasks list is empty
+    </div>
+  </ul>
+  <app-preloader *ngIf="loader"></app-preloader>
+</div>
