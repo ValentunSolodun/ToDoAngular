@@ -22,6 +22,9 @@ ul{
         .list_wrapper__title {
             font-size: 13px;
             line-height: 1.5;
+            height: inherit !important;
+            display: block;
+            word-break: break-all;
         }
         .list_wrapper__descriptions {
             font-size: 13px;
@@ -68,5 +71,8 @@ ul{
     }
     .low_pr {
         background: #9ac82a;
+    }
+    .none_pr{
+        color: #000 !important;
     }
 }

@@ -13,24 +13,6 @@ import { trigger, transition, animate, style, state } from '@angular/animations'
       transition(':leave', [
         animate('250ms ease-in', style({ opacity: 0 }))
       ])
-    ]),
-    trigger('openClose', [
-      state('open', style({
-        height: '200px',
-        opacity: 1,
-        backgroundColor: 'yellow'
-      })),
-      state('closed', style({
-        height: '100px',
-        opacity: 0.5,
-        backgroundColor: 'green'
-      })),
-      transition('open => closed', [
-        animate('1s')
-      ]),
-      transition('closed => open', [
-        animate('0.5s')
-      ])
     ])
   ],
   templateUrl: './tasks.component.html',
@@ -43,6 +25,7 @@ export class TasksComponent implements OnInit, AfterContentInit {
   loader = true;
   showList;
   showEmptyLabel;
+  showBtnFullTitle = true;
   constructor(db: AngularFireDatabase) {
     this.dataB = db;
     this.dataB.list('/items')
@@ -79,9 +62,15 @@ export class TasksComponent implements OnInit, AfterContentInit {
      overflow-y: visible;
      height: auto;
     `;
+    this.fnShowBtnFullTitle(false);
+  }
+
+  fnShowBtnFullTitle(data: boolean): boolean {
+    return this.showBtnFullTitle = data;
   }
 
   updateDone(data: string, check: HTMLInputElement) {
+    this.fnShowBtnFullTitle(true);
     setTimeout(() => {
       this.dataB.list('/items').update(data, {
         done: check.checked

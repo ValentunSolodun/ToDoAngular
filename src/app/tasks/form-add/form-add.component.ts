@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterContentInit} from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { ManipulateDataService } from '../../servise/manipulate-data.service';
 
 declare var $: any;
 
@@ -29,33 +28,41 @@ export class FormAddComponent implements OnInit, AfterContentInit {
   add_item_pr = '―';
   add_item_date;
   isEmptyTest;
-  dataB;
+  buttonRemoveToggle: boolean;
 
-  constructor(private db: AngularFireDatabase, private manipDate: ManipulateDataService) {
-    this.dataB = db;
+  constructor(private db: AngularFireDatabase) {
+    this.db.list('/items')
+      .valueChanges()
+      .subscribe(items => {
+        if (items.length) {
+          this.buttonRemoveToggle = false;
+        } else {
+          this.buttonRemoveToggle = true;
+        }
+      });
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      console.log(this.manipDate.fnTest());
-    }, 1000);
   }
 
-  ngAfterContentInit() {}
+  ngAfterContentInit() {
+  }
 
-  addItems() {
+  addItems(): void {
     const dt = new Date();
-    this.dataB.list('/items').push().set({
+    const setCurrentDare = `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()} | ${dt.getHours()}:${dt.getMinutes()}`;
+    this.db.list('/items').push({
       title: this.add_item_title,
       desc: this.add_item_desc,
-      date: `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()} | ${dt.getHours()}:${dt.getMinutes()}`,
-      to_date: this.add_item_date,
+      date: setCurrentDare,
+      to_date: this.add_item_date || `${dt.getFullYear()}-${dt.getMonth() + 1}-${dt.getDate()}`,
       priority: this.add_item_pr,
       done: false
     });
+    this.buttonRemoveToggle = true;
   }
 
-  toogleAddItems() {
+  toogleAddItems(): void {
     setTimeout(() => {
       $('select').formSelect();
     }, 10);
@@ -63,14 +70,11 @@ export class FormAddComponent implements OnInit, AfterContentInit {
     this.add_item_title = this.add_item_desc = '';
   }
 
-  selectPriority(event: any) {
+  selectPriority(event: any): void {
     this.add_item_pr = event.target.value;
   }
-  removeItems() {
-    this.dataB.list('/items').remove(0);
+  removeItems(): void {
+    this.db.list('/items').remove(null);
+    this.buttonRemoveToggle = false;
   }
-  validationsForms() {
-    console.log('validations actions');
-  }
-
 }

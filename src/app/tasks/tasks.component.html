@@ -9,7 +9,7 @@
           <input [checked]="it.done" type="checkbox" checked="checked" #doneCheck/>
           <span class="list_wrapper__title">{{it.title}}</span>
         </label>
-        <a (click)="showFullTitle(list_wrapper_ckeckbox__label)" *ngIf="it.title.length>60" class="btn-floating btn-small pulse">
+        <a style="margin-left: 5px" (click)="showFullTitle(list_wrapper_ckeckbox__label)" *ngIf="it.title.length>60 && showBtnFullTitle" class="btn-floating btn-small pulse">
           <i class="material-icons">edit</i>
         </a>
       </div>
@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="list_wrapper__priority col s1" [class.high_pr]="it.priority == 'high'" [class.med_pr]="it.priority == 'med'"
-        [class.low_pr]="it.priority == 'low'">
+        [class.low_pr]="it.priority == 'low'" [class.none_pr]="it.priority == '―'">
         {{it.priority | lowercase}}
       </div>
       <div class="list_wrapper__buttonRemove col s1">

@@ -2,12 +2,12 @@
   <i class="material-icons left">add</i>Add Item
 </a>
 
-<a [class.disabled]="false" (click)="removeItems()" style="margin-left: 10px;" class="waves-effect waves-light btn red">
+<a [class.disabled]="buttonRemoveToggle" (click)="removeItems()" style="margin-left: 10px;" class="waves-effect waves-light btn red">
   <i class="material-icons left">remove</i>Remove items
 </a>
 
 <div class="add-item z-depth-1" *ngIf="toogleAddVar" [@fadeInOut]>
-  <form (ngSubmit)="validationsForms()" #setForm="ngForm">
+  <form #setForm="ngForm">
     <div class="input-field">
       <input type="text" required id="add_item__input" name="title" [(ngModel)]="add_item_title" value="Title" #add_item__input="ngModel">
       <label for="add_item__input">Title</label>
