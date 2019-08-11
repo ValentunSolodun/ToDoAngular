@@ -4,15 +4,7 @@
 
 export const environment = {
   production: false,
-  firebase : {
-    apiKey: 'AIzaSyDJGjUUF-BTljd63kVjC6T4kiTxPui1M68',
-    authDomain: 'todolist-df411.firebaseapp.com',
-    databaseURL: 'https://todolist-df411.firebaseio.com',
-    projectId: 'todolist-df411',
-    storageBucket: 'todolist-df411.appspot.com',
-    messagingSenderId: '821209746884',
-    appId: '1:821209746884:web:6dc6a489a0d4d3ec'
-  }
+  firebase : {}
 };
 
 /*
